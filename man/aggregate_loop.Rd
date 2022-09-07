@@ -7,12 +7,12 @@
 aggregate_loop(listaShrt, cdat_greenLt, years, type)
 }
 \arguments{
-\item{listaShrt, cdat_greenLt}{A data frame}
+\item{listaShrt, }{cdat_greenLt A data frame}
 
 \item{years}{A vector of integer}
 
 \item{type}{A character with values "L" when running launch_green and "N"
-when running nut_balance}
+when running region_nut_balance}
 }
 \value{
 A matrix

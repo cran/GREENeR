@@ -198,7 +198,7 @@ knitr::include_graphics('figures/comparing_twosets_paramsTN.png')
 ## ---- message=FALSE, eval=FALSE-----------------------------------------------
 #  # Computing the nutrient balance
 #  years <- c(2003:2009)
-#  Nut_bal_TN <- nut_balance(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years)
+#  Nut_bal_TN <- region_nut_balance(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years)
 #  # Plot the sankey plot with the result of the balance
 #  sank <- N4_sankey(Nut_bal_TN)
 

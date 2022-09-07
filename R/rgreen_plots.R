@@ -95,7 +95,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
 
   bes_par <- NULL
   top_best <- NULL
-  ind_mtr <- c(6, 15, 9, 10, 11, 17)
+  ind_mtr <- c(6, 18, 19, 9, 10, 11, 17, 20)
 
   for (ind in ind_mtr) {
     if (ind == 6) {
@@ -127,9 +127,9 @@ calib_boxplot <- function(df_cb, rate_bs) {
   oldpar <- par(no.readonly = TRUE)
   on.exit(par(oldpar))
   graphics::par(mfrow = c(3, 3), mar = c(4.1, 4.1, 2.1, 2.1))
-  graphics::boxplot(top_best$cp ~ top_best$metric,
+  graphics::boxplot(top_best$KGE ~ top_best$metric,
                     las = 2,
-                    main = "cp",
+                    main = "KGE",
                     xlab = "",
                     ylab = "")
   graphics::boxplot(top_best$mNSE ~ top_best$metric,
@@ -154,7 +154,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
                     ylab = "")
   graphics::boxplot(top_best$PBIAS.. ~ top_best$metric,
                     las = 2,
-                    main ="PBIAS..",
+                    main ="PBIAS",
                     xlab = "",
                     ylab = "")
 
@@ -186,7 +186,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
 #' @description Dot plot of goodness-of-fit metric vs parameters value
 #'
 #' @param df_cb data frame. A table with the result of the calibration process.
-#' @param par character. Goodness of fit measures. See alternatives link "NSE"
+#' @param param character. Goodness of fit measures. See alternatives link "NSE"
 #' "rNSE", "NSE", "mNSE", "MAE", "PBIAS", "cp", "R2".
 #'
 #' @importFrom grDevices colorRampPalette
@@ -218,21 +218,21 @@ calib_boxplot <- function(df_cb, rate_bs) {
 #'
 #' @export
 #'
-calib_dot <- function(df_cb, par) {
+calib_dot <- function(df_cb, param) {
 
   rbPal <- grDevices::colorRampPalette(
     c('red4', 'red', 'orange', 'green', "green4", "cyan1"))
 
-  intervals <- classInt::classIntervals(df_cb[, par],
+  intervals <- classInt::classIntervals(df_cb[, param],
                                         n = min(nrow(df_cb), 6),
                                         style = "quantile",
                                         warnSmallN = FALSE)
-  cuts <- cut(df_cb[, par], intervals$brks, labels = FALSE,
+  cuts <- cut(df_cb[, param], intervals$brks, labels = FALSE,
               include.lowest = TRUE)
   df_cb$colors <- rbPal(min(nrow(df_cb), 6))[as.numeric(cuts)]
 
-  oldpar <- par(no.readonly = TRUE)
-  on.exit(par(oldpar))
+  oldpar <- graphics::par(no.readonly = TRUE)
+  on.exit(graphics::par(oldpar))
   graphics::par(mar = c(4.1, 4.1, 2.1, 2.1))
 
   graphics::layout(mat = matrix(c(1, 2, 3, 4),
@@ -263,7 +263,7 @@ calib_dot <- function(df_cb, par) {
   labels <- paste0("(" , DF_leg$lower," , " , DF_leg$upper, "]")
   graphics::plot(NULL, xaxt = 'n', yaxt = 'n', bty = 'n',
                  ylab = '', xlab = '', xlim = 0:1, ylim = 0:1)
-  graphics::legend("center", title = par, legend = labels,
+  graphics::legend("center", title = param, legend = labels,
                    col = rbPal(min(nrow(df_cb), 6)),
                    pch = 16, bty = "n", cex = 1.5)
 
@@ -412,7 +412,7 @@ create_levels <- function(df, no_sf){
                     df$Shreve <= theQuantile[5], ]$HydroID
 
   df$shrLevel <- NA
-  if (class(df$shrLevel) != "logical") {
+  if(!is.logical(df$shrLevel)) {
     df$shrLevel <- as.character(df$shrLevel)
   }
   df[df$HydroID %in% ShrLevel1, ]$shrLevel <- "level1"
@@ -1160,15 +1160,15 @@ load_SA_map <- function(hydroSf_merge, refN_P, long_basin, unity,
   c_man <- c("Man_1", "Manure", "YlOrRd")
   c_min <- c("Min_1", "Mineral", "YlOrRd")
   c_sd <- c("Sd_1", "Sc.Dwellings", "YlOrRd")
-  c_ps <- c("Ps_1", "Sc.Dwellings", "YlOrRd")
+  c_ps <- c("Ps_1", "PointS", "YlOrRd")
   c_tot <- c("CatchLoad_1", "CatchLoad", "-viridis")
 
   if(refN_P == 24) {
-    c_atm <- c("Atm_1", "Atmosferic", "YlOrRd")
+    c_atm <- c("Atm_1", "Atmospheric", "YlOrRd")
 
-    c_soil <- c("Soil_1", "Atmosferic", "YlOrRd")
+    c_soil <- c("Soil_1", "Soil", "YlOrRd")
 
-    c_fix <- c("Fix_1", "PlantF.", "YlOrRd")
+    c_fix <- c("Fix_1", "Fix", "YlOrRd")
 
     param_list <- list(c_man, c_min, c_ps, c_sd, c_fix, c_atm, c_soil, c_tot)
     map_list <- create_lits_of_maps(hydroSf_merge, long_basin, unity,
@@ -1219,8 +1219,8 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 
   if (refN_P == 16) {
     c_ps <- c("Ps", "PointS", "-magma")
-    c_fix <- c("Fix", "PlantF.", "YlOrRd")
-    c_atm <- c("Atm", "Atmosferic", "YlOrRd")
+    c_fix <- c("Fix", "Fix", "YlOrRd")
+    c_atm <- c("Atm", "Atmospheric", "YlOrRd")
     c_soil <- c("Soil", "Soil", "YlOrRd")
 
     param_list <- list(c_man, c_min, c_fix, c_sd, c_atm, c_soil, c_tot, c_ps)
@@ -1513,6 +1513,10 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
             greenFile_OUT <- green_file[green_file$NextDownID == -1, ]
             greenFileOut_melt <- reshape2::melt(greenFile_OUT[, c(2:index4)],
                                                 id.vars = c( "Year"))
+            greenFileOut_melt$variable <- factor(greenFileOut_melt$variable,
+                                                 levels = c("Min", "Man", "Atm",
+                                                            "Fix", "Soil", "Sd",
+                                                            "Ps"))
 
             print(
               ggplot2::ggplot(data = greenFileOut_melt,
@@ -1526,9 +1530,9 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
                               x = "Year")  +
                 ggplot2::scale_fill_brewer(palette = colores) +
                 ggplot2::theme(legend.position = "bottom",
-                               legend.text = element_text(size = 12),
-                               legend.margin = margin(t = -0.5, unit = 'cm') ) +
-                ggplot2::guides(fill = guide_legend(nrow = 1, byrow = TRUE,
+                               legend.text = ggplot2::element_text(size = 12),
+                               legend.margin = ggplot2::margin(t = -0.5, unit = 'cm') ) +
+                ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1, byrow = TRUE,
                                                     title = "")) +
                 ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
             )
@@ -1564,7 +1568,7 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
 #' # years in which the model should be executed
 #' loc_years <- 1990:2018
 #' # Computing the nutrient balance
-#' nut_bal <- nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
+#' nut_bal <- region_nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 #' sd_coef, loc_years)
 #' # Plot the sankey plot with the result of the balance
 #' sank <- N4_sankey(nut_bal)
@@ -1758,7 +1762,7 @@ scatter_plot <- function(df_cb, param) {
 #' goodness-of-fit metric
 #'
 #' @param df_cb data frame. The result of the calibration process.
-#' @param par numeric. Goodness-of-fit measures. "NSE", "rNSE", "NSE",
+#' @param param numeric. Goodness-of-fit measures. "NSE", "rNSE", "NSE",
 #' "mNSE", "MAE", "PBIAS", "cp", "R2",...
 #'
 #' @return A vector with the 3 parameters
@@ -1786,7 +1790,7 @@ scatter_plot <- function(df_cb, param) {
 #'
 #' @export
 #'
-select_params <- function(df_cb, par){
+select_params <- function(df_cb, param){
 
   best_par <- NULL
   ind_mtr <- c(6, 15, 9, 10, 11, 17)
@@ -1803,7 +1807,7 @@ select_params <- function(df_cb, par){
 
   }
 
-  best_par[best_par$metric == par, c(par, "alpha_P", "alpha_L", "sd_coeff")]
+  best_par[best_par$metric == param, c(param, "alpha_P", "alpha_L", "sd_coeff")]
 }
 
 #'
@@ -1823,6 +1827,7 @@ select_params <- function(df_cb, par){
 #' sources that reaches the stream network.
 #' @param name_basin character. The title of the plot.
 #' @param years numeric. Years to be shown in the plot.
+#' @param max_value numeric. The maximum value for x and y axis.
 #'
 #' @importFrom ggplot2 ggplot ggtitle aes geom_point theme_bw geom_abline
 #' facet_wrap
@@ -1841,16 +1846,18 @@ select_params <- function(df_cb, par){
 #' sd_coef <- 0.2
 #' # years in which the plot will we shown
 #' years <- 1990:2018
+#' maxvalue <- 10
 #' # generating the scatter plot comparing observed vs modeled loads by year
 #' name_basin <- "Lay NSE"
+#' max_value <- 10
 #' simobs_annual_plot(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
-#' sd_coef, years, name_basin)
+#' sd_coef, years, name_basin, max_value)
 #' }
 #'
 #' @export
 #'
 simobs_annual_plot <- function(catch_data, annual_data, alpha_p, alpha_l,
-                            sd_coef, years, name_basin) {
+                            sd_coef, years, name_basin, max_value) {
 
   df_scen_global <- launch_green(catch_data, annual_data, alpha_p, alpha_l,
                                 sd_coef, years)
@@ -1865,7 +1872,9 @@ simobs_annual_plot <- function(catch_data, annual_data, alpha_p, alpha_l,
                                     y = PredictLoad)) +
     ggplot2::ggtitle(name_basin)  +
     ggplot2::geom_point() +
-    ggplot2::theme_bw(base_size = 10  ) +
+    ggplot2::xlim(0, max_value) +
+    ggplot2::ylim(0, max_value) +
+    ggplot2::theme_bw(base_size = 10) +
     ggplot2::geom_abline(intercept = 0, slope = 1) +
     ggplot2::facet_wrap(~Year)
 

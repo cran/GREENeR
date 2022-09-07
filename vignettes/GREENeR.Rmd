@@ -432,12 +432,12 @@ At the top left of the figure, the scores of six frequently used goodness-of-fit
 
 Once the most appropriate parameter set has been selected, it is possible to run the model to estimate nutrient loads across the basin. 
 
-The function **nut_balance()** runs the GREEN model with the selected parameter set, and returns the region nutrient mass balance of the nutrient fluxes for the whole simulation period. The results of this function can be visualized in a Sankey diagram with the function **N4_sankey()**.
+The function **region_nut_balance()** runs the GREEN model with the selected parameter set, and returns the region nutrient mass balance of the nutrient fluxes for the whole simulation period. The results of this function can be visualized in a Sankey diagram with the function **N4_sankey()**.
 
 ```{r, message=FALSE, eval=FALSE}
 # Computing the nutrient balance  
 years <- c(2003:2009)
-Nut_bal_TN <- nut_balance(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years)
+Nut_bal_TN <- region_nut_balance(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years)
 # Plot the sankey plot with the result of the balance
 sank <- N4_sankey(Nut_bal_TN)
 ```

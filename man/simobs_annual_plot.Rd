@@ -11,7 +11,8 @@ simobs_annual_plot(
   alpha_l,
   sd_coef,
   years,
-  name_basin
+  name_basin,
+  max_value
 )
 }
 \arguments{
@@ -33,6 +34,8 @@ sources that reaches the stream network.}
 \item{years}{numeric. Years to be shown in the plot.}
 
 \item{name_basin}{character. The title of the plot.}
+
+\item{max_value}{numeric. The maximum value for x and y axis.}
 }
 \value{
 Multiple scatter plot and a data frame with annual nutrient
@@ -52,10 +55,12 @@ alpha_l <- 0.02
 sd_coef <- 0.2
 # years in which the plot will we shown
 years <- 1990:2018
+maxvalue <- 10
 # generating the scatter plot comparing observed vs modeled loads by year
 name_basin <- "Lay NSE"
+max_value <- 10
 simobs_annual_plot(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
-sd_coef, years, name_basin)
+sd_coef, years, name_basin, max_value)
 }
 
 }
