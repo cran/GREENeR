@@ -2,7 +2,7 @@ Package: GREENeR
 Type: Package
 Title: Geospatial Regression Equation for European Nutrient Losses
         (GREEN)
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(person("A.", "Udias", role = "aut",
                      email = "angeludias@gmail.com"),
               person("B.", "Grizzetti", role = "aut", 
@@ -44,6 +44,6 @@ BugReports: https://github.com/calfarog/GREENeR/issues
 Suggests: testthat, knitr, rmarkdown, codetools
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-09-07 11:47:40 UTC; cesar.alfaro
+Packaged: 2023-03-31 13:11:01 UTC; cesar.alfaro
 Repository: CRAN
-Date/Publication: 2022-09-07 12:10:02 UTC
+Date/Publication: 2023-04-03 00:20:16 UTC

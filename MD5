@@ -1,6 +1,6 @@
-c7a3726b7cdf12d4f5ac659a64083bde *DESCRIPTION
+3bc49f24dc157e9caeafe53a809cc176 *DESCRIPTION
 ed3278754ad37120a4e72cbb6b069433 *NAMESPACE
-b7837fb6e8088459611fbfc6c551d1ce *NEWS.md
+3a2e1c62d4caadeb2333fa4e63eb0f0d *NEWS.md
 ebdfa39a1aa73d93621afc748c20d498 *R/GREENeR-package.R
 41cc2ef2db33fd164eeb97f7dd567eb7 *R/annual_data_TN.R
 59e8efcac7128129f984639429c8e7a3 *R/annual_data_TP.R
@@ -8,10 +8,10 @@ e50130f48e12226ffb23065253dacbe8 *R/catch_data_TN.R
 94e06b67b3f79c63629f3e42a85ca7d6 *R/catch_data_TP.R
 9f89f2b084769538ef2287241ddc7bad *R/globals.R
 c68f3adca4574fa6dfe3f3484e28ab8f *R/rgreen.R
-c3227e0bfdabf95d86277328946331da *R/rgreen_plots.R
+53aca1ce29ad1ce44d872075a2befb21 *R/rgreen_plots.R
 91b219dc4a0504e9db93a1a1db3b30d7 *R/sh_file.R
-7d401e07e99f6d565dbebb64a80fb570 *build/partial.rdb
-339a3405d5c511268425f71188a8e000 *build/vignette.rds
+9ecb0bdfb906213cc54af05f9a8fb645 *build/partial.rdb
+ac639bcdf3574224f7a86ff2adc434d8 *build/vignette.rds
 a0184e78324d7b561c8899c55d7650b6 *data/annual_data_TN.rda
 536bfdd3ae5b7e56ab6f0862a3bf2a48 *data/annual_data_TP.rda
 a0ad78bacde26a4ef5de89594b93644e *data/catch_data_TN.rda
@@ -19,7 +19,7 @@ a0ad78bacde26a4ef5de89594b93644e *data/catch_data_TN.rda
 20578584b65aff07520011a4bf07383d *data/sh_file.rda
 80aa0d117971c3237ca36ca377ed2f2f *inst/doc/GREENeR.R
 0d798623132f2148b7f060538207c239 *inst/doc/GREENeR.Rmd
-2b15d17d19eacd91c574cf32ae3b82a1 *inst/doc/GREENeR.html
+b55ccf6cd3fef6f3a3851f1df324f97a *inst/doc/GREENeR.html
 7163b864df83a2f3425bc9cf1200aae0 *man/GREENeR-package.Rd
 04684aa4baf444d0eded6d611f2ff9c6 *man/N4_sankey.Rd
 f16957ce279ed9b360e5ad1a2e27004a *man/aggregate_loop.Rd

@@ -1,3 +1,7 @@
+# GREENeR 0.1.2
+
+* Solved warning messages in calib_boxplot function.
+
 # GREENeR 0.1.1
 
 * Add three new functions: read_NSdata, read_geometry and shreve.
