@@ -119,13 +119,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -796,7 +803,7 @@ enough information to continue the calibration process.</p></li>
 <span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>upp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="fl">0.08</span>, <span class="fl">0.9</span>)       </span>
 <span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a></span>
 <span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co"># number of iterations</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>n_iter <span class="ot">&lt;-</span> <span class="dv">2000</span>    </span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>n_iter <span class="ot">&lt;-</span> <span class="dv">20</span>  </span>
 <span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a></span>
 <span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co"># years in which the model should be executed</span></span>
 <span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2003</span><span class="sc">:</span><span class="dv">2009</span>)</span></code></pre></div>

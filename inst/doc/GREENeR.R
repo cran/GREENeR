@@ -134,7 +134,7 @@ low <- c(10, 0.000, 0.1)
 upp <- c(50, 0.08, 0.9)       
 
 # number of iterations
-n_iter <- 2000    
+n_iter <- 20  
 
 # years in which the model should be executed
 years <- c(2003:2009)
